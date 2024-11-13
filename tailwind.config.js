@@ -8,7 +8,7 @@ export default {
     extend: {
       colors: { 
         "dark-blue": "hsl(212, 24%, 26%)",
-        "grayish-Blue": "hsl(211, 10%, 45%)",
+        "grayish-blue": "hsl(211, 10%, 45%)",
         "moderate-blue": "hsl(238, 40%, 52%)",
         "soft-red": "hsl(358, 79%, 66%)",
         "light-grayish-blue": "hsl(239, 57%, 85%)",
@@ -20,7 +20,7 @@ export default {
         paragragh: "16px", 
       }
     }, 
-    fontFamily: ["Rubik", "sans-serif"]
+    // fontFamily: 'Rubik'
   },
   plugins: [],
 }
