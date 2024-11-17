@@ -1,4 +1,4 @@
-import IconReply from '../assets/images/icon-reply.svg';
+import IconReply from '../../assets/images/icon-reply.svg';
 
 export const Reply = () => {
     return (

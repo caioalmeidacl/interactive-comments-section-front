@@ -1,17 +1,36 @@
-import { Post } from "./components/Post";
-import avatar from "./assets/avatars/image-juliusomo.png";
+import React, { useEffect, useState, createContext } from "react";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Login } from "./pages/Login";
+import { InteractiveSection } from "./pages/InteractiveSection";
+
+export const UserContext = createContext();
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  const userInfo = localStorage.getItem("user");
+
+  useEffect(() => {
+    if (userInfo) {
+      setUser(JSON.parse(userInfo));
+    }
+  }, [userInfo]);
+
   return (
-    <div className="p-4">
-      <Post 
-        image={avatar} 
-        username="Caio"
-        createdAt="2 weeks ago" 
-        content="Impressive! Though it seems the drag feature could be improved. But overall it looks incredible. You've nailed the design and the responsiveness at various breakpoints works really well."
-        score="12"
-        />
-    </div>
+    <BrowserRouter>
+      <UserContext.Provider value={{ user, setUser }}>
+        <Routes>
+          {!user ? (<Route path="/" element={<Login />} />)
+            : (
+              <>
+                <Route path="home" element={<ProtectedRoute><InteractiveSection /></ProtectedRoute>} />
+              </>
+            )}
+            <Route path="*" element={<h1 className="fixed text-white flex items-center justify-center text-7xl bg-black h-full w-full">PAGE NOT FOUND</h1>} />
+        </Routes>
+      </UserContext.Provider>
+    </BrowserRouter>
   )
 }
 

@@ -1,6 +1,6 @@
 import React from "react";
-import PlusIcon from '../assets/images/icon-plus.svg';
-import MinusIcon from '../assets/images/icon-minus.svg';
+import PlusIcon from '../../assets/images/icon-plus.svg';
+import MinusIcon from '../../assets/images/icon-minus.svg';
 
 export const Score = (props) => {
     return (
