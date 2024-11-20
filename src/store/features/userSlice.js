@@ -1,15 +1,16 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { login as apiLogin, getUserInfo } from '../../service/api';
+import { setToken, clearStorage, setUser, getToken, getUser } from './manageStorage';
 
 export const authenticateUser = createAsyncThunk(
     'user/authenticateUser',
     async ({ username, password }, { rejectWithValue }) => {
         try {
             const data = await apiLogin(username, password);
-            localStorage.setItem('token', data.access_token);
+            setToken(data.access_token);
 
             const userInfo = await getUserInfo();
-            localStorage.setItem('user', JSON.stringify(userInfo));
+            setUser(JSON.stringify(userInfo));
 
             return { token: data.access_token, user: userInfo };
         } catch (e) {
@@ -21,8 +22,8 @@ export const authenticateUser = createAsyncThunk(
 const userSlice = createSlice({
     name: 'user',
     initialState: {
-        user: null,
-        token: null,
+        user: getUser() || null,
+        token: getToken() || null,
         loading: false,
         error: null,
     },
@@ -30,7 +31,7 @@ const userSlice = createSlice({
         logOut: (state) => {
             state.user = null;
             state.token = null;
-            localStorage.clear();
+            clearStorage();
         },
     },
     extraReducers: (builder) => {

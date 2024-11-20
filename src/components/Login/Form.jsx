@@ -11,7 +11,7 @@ export const Form = (props) => {
     const navigate = useNavigate();
     const title = props.title;
 
-    const handleLogin = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
@@ -24,7 +24,7 @@ export const Form = (props) => {
 
     const content = (
         <form className='flex flex-col'
-            onSubmit={handleLogin}
+            onSubmit={handleSubmit}
         >
             {title === 'Register' ? (
                 <>

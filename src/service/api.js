@@ -18,13 +18,12 @@ const fetchData = async (endpoint, options = {}) => {
         }
         throw new Error("Error ao realizar a requisição");
     }
-    
+
     return await response.json();
 }
 
 
 export const login = async (username, password) => {
-    console.log(username, password);
     return await fetchData("api/login", {
         method: "POST", 
         headers: {

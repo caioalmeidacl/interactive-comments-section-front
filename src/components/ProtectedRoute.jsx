@@ -6,11 +6,10 @@ import { useSelector } from 'react-redux';
 function ProtectedRoute({ children }) {
     const token = useSelector(selectCurrentToken);
     const location = useLocation();
-    
+
     return (
-        token 
-            ? children
-            : <Navigate to={'/'}  state={{ from: location }} replace />
+        token ? children
+            : <Navigate to={'/'} state={{ from: location }} replace />
     );
 }
 
