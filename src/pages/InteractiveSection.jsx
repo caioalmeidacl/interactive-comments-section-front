@@ -5,7 +5,7 @@ const InteractiveSection = () => {
     const { comment } = useComment();
 
     return (
-        <div>
+        <div className="p-4">
             {comment.map((props, index ) => (
                 <Comment key={index} {...props} />
             ))}

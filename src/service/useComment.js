@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getAllComments } from "./api";
+import { getAllComments, updateScore as update } from "./api";
 
 const useComment = () => {
     const [comment, setComments] = useState([]);
@@ -14,11 +14,19 @@ const useComment = () => {
         }
     };
 
+    const updateScore = async (newScore, id) => {
+       try {
+        await update(newScore, id);
+       } catch(error) {
+        throw error;
+       }
+    };
+
     useEffect(() => {
         getComments();
     }, [])
 
-    return { comment }
+    return { comment, updateScore };
 }
 
 export { useComment }

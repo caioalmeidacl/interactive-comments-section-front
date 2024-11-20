@@ -1,15 +1,17 @@
-import React, { useContext } from "react";
-import { UserContext } from "../App";
-import { Navigate } from "react-router-dom";
+import React from 'react';
+import { Navigate, useLocation } from 'react-router-dom';
+import { selectCurrentToken } from '../store/features/userSlice';
+import { useSelector } from 'react-redux';
 
 function ProtectedRoute({ children }) {
-    const { user } = useContext(UserContext);
+    const token = useSelector(selectCurrentToken);
+    const location = useLocation();
     
-    if (!user) {
-        return <Navigate to={"/"}/>
-    }
-    
-    return children;
+    return (
+        token 
+            ? children
+            : <Navigate to={'/'}  state={{ from: location }} replace />
+    );
 }
 
 export { ProtectedRoute }

@@ -5,13 +5,11 @@ const fetchData = async (endpoint, options = {}) => {
     const url = `${BASE_URL}/${endpoint}`;
     
     const headers = { 
-        'Content-type': "application/json", "Authorization": token ? `Bearer ${token}` : "", ...options.headers, 
+        'Content-Type': "application/json", "Authorization": token ? `Bearer ${token}` : "", ...options.headers, 
     };
 
-    const body = options.body;
-
     const response = await fetch(url, { 
-        body, headers, ...options,
+        headers, ...options,
     });
 
     if(!response.ok) {
@@ -20,12 +18,13 @@ const fetchData = async (endpoint, options = {}) => {
         }
         throw new Error("Error ao realizar a requisição");
     }
-
+    
     return await response.json();
 }
 
 
 export const login = async (username, password) => {
+    console.log(username, password);
     return await fetchData("api/login", {
         method: "POST", 
         headers: {
@@ -47,3 +46,10 @@ export const getAllComments = async () => {
         method: "GET",
     });  
 };  
+
+export const updateScore = async (score, id) => {
+    return await fetchData(`api/comment/${id}`, {
+        method: "PATCH", 
+        body: JSON.stringify({ score }),
+    });
+};
