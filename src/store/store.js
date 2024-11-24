@@ -1,26 +1,21 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import tokenMiddleware from './features/middlewares/tokenMiddleware';
+import { createPersistedReducer } from './persistReducer';
 import userReducer from './features/userSlice';
+import { persistStore } from 'redux-persist';
 
-const persistConfig = {
-    key: 'root',
-    storage,
-    whitelist: ['user'],
-};
+const rootReducer = combineReducers({
+    user : userReducer,
+});
 
-const persistedReducer = persistReducer(persistConfig, userReducer);
+const persistedReducer = createPersistedReducer(rootReducer);
 
 const store = configureStore({
-    reducer: {
-        user: persistedReducer,
-    },
+    reducer: persistedReducer,
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
-            serializableCheck: {
-                ignoredActions: ['persist/PERSIST'],
-            }
-        })
+            serializableCheck: false, 
+        }).concat(tokenMiddleware),
 });
 
 const persistor = persistStore(store);

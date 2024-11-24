@@ -1,3 +1,5 @@
+import { jwtDecode } from "jwt-decode";
+
 export const setToken = (token) => localStorage.setItem('token', token);
 
 export const getToken = () => {
@@ -13,3 +15,10 @@ export const getUser = () => {
 };
 
 export const clearStorage = () => localStorage.clear();
+
+export const isTokenExpired = (token) => {
+    const decoded = jwtDecode(token);
+    const currentTime = Date.now() / 1000;
+
+    return decoded.exp < currentTime;
+}

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { login as apiLogin, getUserInfo } from '../../service/api';
+import { login as apiLogin, getUserInfo, login } from '../../service/api';
 import { setToken, clearStorage, setUser, getToken, getUser } from './manageStorage';
 
 export const authenticateUser = createAsyncThunk(
@@ -19,21 +19,22 @@ export const authenticateUser = createAsyncThunk(
     }
 );
 
+const initialState = {
+    user: getUser() || null,
+    token: getToken() || null,
+    loading: false,
+    error: null,
+}
+export const logOut = () => {
+    console.log('nao esta chegando  aq');
+    clearStorage();  
+    return {...initialState};
+};
+
 const userSlice = createSlice({
     name: 'user',
-    initialState: {
-        user: getUser() || null,
-        token: getToken() || null,
-        loading: false,
-        error: null,
-    },
-    reducers: {
-        logOut: (state) => {
-            state.user = null;
-            state.token = null;
-            clearStorage();
-        },
-    },
+    initialState,
+    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(authenticateUser.pending, state => {
@@ -46,16 +47,14 @@ const userSlice = createSlice({
                 state.token = action.payload.token;
             })
             .addCase(authenticateUser.rejected, (state, action) => {
-                state.loading = false;
-                state.error = action.payload || 'Failed to authenticate user';
-            });
+                if (state) {
+                    state.loading = false;
+                    state.error = action.payload || 'Failed to authenticate user';
+                }
+            })
     },
 });
 
-
-export const { logOut } = userSlice.actions;
-
 export default userSlice.reducer;
-
 export const selectCurrentUser = (state) => state.user.user;
 export const selectCurrentToken = (state) => state.user.token;
