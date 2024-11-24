@@ -47,7 +47,7 @@ export const Form = (props) => {
                 </>
             )}
 
-            <div className='w-full fixed bottom-0 left-0 bg-white p-2'>
+            <div className='w-full fixed bottom-0 left-0 bg-white p-2 md:relative md:bg-inherit md:p-0 md:mt-2'>
                 <InputButton type='submit' value='Submit' />
             </div>
 

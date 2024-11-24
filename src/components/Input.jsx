@@ -4,7 +4,7 @@ export const Input = (props) => {
             type={props.type} 
             id={props.id} 
             {...props} 
-            className="border border-slate-400 p-2 bg-very-light-gray w-full mb-2"
+            className="border border-slate-400 p-2 bg-very-light-gray w-full mb-2 md:mb-4"
         />
     );
 } 

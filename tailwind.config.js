@@ -6,6 +6,8 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+      }, 
       colors: { 
         "dark-blue": "hsl(212, 24%, 26%)",
         "grayish-blue": "hsl(211, 10%, 45%)",
