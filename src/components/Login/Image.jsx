@@ -36,7 +36,7 @@ export const ProfileImage = (props) => {
         <img src={defaultProfilePic}
             alt="ProfilePicture"
             width={40}
-            className="rounded-full object-contain"
+            className={`rounded-full object-contain ${props.className}`}
         />
     );
 };

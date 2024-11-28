@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { getAllComments, updateScore as update } from "./api";
 
 const useComment = () => {
-    const [comment, setComments] = useState([]);
+    const [comments, setComments] = useState([]);
 
     const getComments = async () => {
         try { 
@@ -26,7 +26,7 @@ const useComment = () => {
         getComments();
     }, [])
 
-    return { comment, updateScore };
+    return { comments, updateScore };
 }
 
 export { useComment }

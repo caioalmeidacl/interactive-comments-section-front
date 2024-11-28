@@ -1,8 +1,62 @@
-import React, { useState } from 'react';
-import { Input, InputButton } from '../Input';
+import React, { useEffect, useState } from 'react';
+import { Input, InputButton, Textarea } from '../Input';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { authenticateUser } from '../../store/features/userSlice';
+import { ProfileImage } from './Image';
+
+export const CommentForm = (props) => {
+    const [position, setPosition] = useState(true);
+
+    const handleSend = (e) => {
+        e.preventDefault();
+    };
+
+    useEffect(() => {
+        const updatePositon = () => {
+            if (window.innerWidth >= 768) {
+                setPosition(true);
+            } else {
+                setPosition(!position);
+            }
+        }
+
+        updatePositon();
+
+        window.addEventListener('resize', updatePositon);
+
+        return () => window.removeEventListener('resize', updatePositon);
+    }, []);
+
+    const content = (
+        <form className='bg-white p-4' onSubmit={handleSend}>
+            <div className='flex flex-col md:flex-row items-start'>
+                {position ? <ProfileImage /> : <></>}
+
+                <Textarea
+                    placeholder='Add a comment...'
+                    rows={3}
+                    className='mb-4 md:mb-0'
+                />
+
+
+                <div className='flex items-center w-full md:w-auto'>
+                    {!position ? <ProfileImage /> : <></>}
+
+                    <InputButton
+                        type='submit'
+                        className='uppercase font-semibold'
+                        value={props.value}
+                    />
+                </div>
+
+            </div>
+        </form>
+    );
+
+    return content;
+}
+
 
 export const Form = (props) => {
     const [username, setUsername] = useState('');
@@ -15,7 +69,7 @@ export const Form = (props) => {
         e.preventDefault();
 
         try {
-            await dispatch(authenticateUser({ username, password})).unwrap();
+            await dispatch(authenticateUser({ username, password })).unwrap();
             navigate('/home');
         } catch (error) {
             console.log(error);
