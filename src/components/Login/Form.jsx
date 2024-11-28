@@ -4,57 +4,71 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { authenticateUser } from '../../store/features/userSlice';
 import { ProfileImage } from './Image';
+import { useComment } from '../../service/useComment';
 
-export const CommentForm = (props) => {
+export const CommentForm = ({ value, parentId }) => {
     const [position, setPosition] = useState(true);
+    const { postComment, postReply } = useComment();
+    const [comment, setComment] = useState('');
 
-    const handleSend = (e) => {
-        e.preventDefault();
-    };
+    const handleSend = async (e) => {
+        e.preventDefault(); 
 
-    useEffect(() => {
-        const updatePositon = () => {
-            if (window.innerWidth >= 768) {
-                setPosition(true);
-            } else {
-                setPosition(!position);
-            }
+        if (!parentId) {
+            await postComment(comment);
+        } else {
+            await postReply(comment, parentId);
         }
 
-        updatePositon();
+        setComment('');
+};
 
-        window.addEventListener('resize', updatePositon);
 
-        return () => window.removeEventListener('resize', updatePositon);
-    }, []);
+const content = (
+    <form className='bg-white p-4' onSubmit={handleSend}>
+        <div className='flex flex-col md:flex-row items-start'>
+            {position ? <ProfileImage /> : <></>}
 
-    const content = (
-        <form className='bg-white p-4' onSubmit={handleSend}>
-            <div className='flex flex-col md:flex-row items-start'>
-                {position ? <ProfileImage /> : <></>}
+            <Textarea
+                placeholder='Add a comment...'
+                rows={3}
+                className='mb-4 md:mb-0'
+                required
+                onChange={(e) => setComment(e.target.value)}
+            />
 
-                <Textarea
-                    placeholder='Add a comment...'
-                    rows={3}
-                    className='mb-4 md:mb-0'
+
+            <div className='flex items-center w-full md:w-auto'>
+                {!position ? <ProfileImage /> : <></>}
+
+                <InputButton
+                    type='submit'
+                    className='uppercase font-semibold'
+                    value={value}
                 />
-
-
-                <div className='flex items-center w-full md:w-auto'>
-                    {!position ? <ProfileImage /> : <></>}
-
-                    <InputButton
-                        type='submit'
-                        className='uppercase font-semibold'
-                        value={props.value}
-                    />
-                </div>
-
             </div>
-        </form>
-    );
 
-    return content;
+        </div>
+    </form>
+);
+
+useEffect(() => {
+    const updatePositon = () => {
+        if (window.innerWidth >= 768) {
+            setPosition(true);
+        } else {
+            setPosition(!position);
+        }
+    }
+
+    updatePositon();
+
+    window.addEventListener('resize', updatePositon);
+
+    return () => window.removeEventListener('resize', updatePositon);
+}, []);
+
+return content;
 }
 
 

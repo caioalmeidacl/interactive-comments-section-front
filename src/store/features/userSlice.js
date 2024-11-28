@@ -25,6 +25,7 @@ const initialState = {
     loading: false,
     error: null,
 }
+
 export const logOut = () => {
     console.log('nao esta chegando  aq');
     clearStorage();  
@@ -56,5 +57,5 @@ const userSlice = createSlice({
 });
 
 export default userSlice.reducer;
-export const selectCurrentUser = (state) => state.user.user;
-export const selectCurrentToken = (state) => state.user.token;
+export const selectCurrentUser = state => state.user.user;
+export const selectCurrentToken = state => state.user.token;

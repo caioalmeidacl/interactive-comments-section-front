@@ -52,3 +52,18 @@ export const updateScore = async (score, id) => {
         body: JSON.stringify({ score }),
     });
 };
+
+
+export const createComment = async (comment) => {
+    return await fetchData('api/comment',  {
+        method: "POST", 
+        body: JSON.stringify({ content: comment }),
+    });
+};
+
+export const createReply = async (reply, parentId) => {
+    return await fetchData('api/reply', {
+        method: "POST",
+        body: JSON.stringify({ content: reply, commentId: parentId }),
+    });
+};

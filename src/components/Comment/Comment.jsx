@@ -3,17 +3,17 @@ import { Paragraph } from './Paragraph';
 import { Score } from './Score';
 import { Reply } from './Reply';
 
-export const Comment = (props) => { 
+export const Comment = ({image, content, user, score, _id, createdAt, handleReply }) => { 
     return (
         <>
             <div className='w-full p-4 bg-white rounded-md mb-4'>
-                <Profile image={props.image} username={props.user.username} createdAt={props.createdAt} />
+                <Profile image={image} username={user.username} createdAt={createdAt} />
 
-                <Paragraph content={props.content}/>
+                <Paragraph content={content}/>
 
                 <div className='flex mt-5'>
-                    <Score score={props.score} id={props._id} />
-                    <button onClick={() => props.handleReply(props._id)}  className='ml-auto'>
+                    <Score score={score} id={_id} />
+                    <button onClick={() => handleReply(_id)}  className='ml-auto'>
                         <Reply />
                     </button>
                 </div>

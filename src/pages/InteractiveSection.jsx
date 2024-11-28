@@ -55,7 +55,7 @@ const InteractiveSection = () => {
 
                 {replyingCommentId === comment._id && (
                     <div className="mb-4">
-                        <CommentForm value='Reply' />
+                        <CommentForm value='Reply' parentId={comment._id} />
                     </div>
                 )}
             </div>
@@ -76,11 +76,11 @@ const InteractiveSection = () => {
             {hierachicalComments.length > 0 ? (
                 <div>
                     {hierachicalComments.map(renderComments)}
-                    <CommentForm value='Send' />
                 </div>
             ) : (
                 <div></div>
             )}
+            <CommentForm value='Send' />
         </div>
     );
 };
