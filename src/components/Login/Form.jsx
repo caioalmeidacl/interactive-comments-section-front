@@ -4,71 +4,77 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { authenticateUser } from '../../store/features/userSlice';
 import { ProfileImage } from './Image';
-import { useComment } from '../../service/useComment';
+import { addComment, addReply } from '../../store/features/commentsSlice';
 
-export const CommentForm = ({ value, parentId }) => {
+export const CommentForm = ({ value, parentId, onSuccess }) => {
     const [position, setPosition] = useState(true);
-    const { postComment, postReply } = useComment();
     const [comment, setComment] = useState('');
+    const dispatch = useDispatch();
 
     const handleSend = async (e) => {
-        e.preventDefault(); 
+        e.preventDefault();
 
-        if (!parentId) {
-            await postComment(comment);
-        } else {
-            await postReply(comment, parentId);
+        try {
+            if (!parentId) {
+                dispatch(addComment({ content: comment })).unwrap();
+            } else {
+                dispatch(addReply({ content: comment, parentId })).unwrap();
+                if(onSuccess) onSuccess();
+            }
+        } catch (error) {
+            console.log('error ao adicionar comentario ' + error.message)
         }
 
         setComment('');
-};
+    };
 
 
-const content = (
-    <form className='bg-white p-4' onSubmit={handleSend}>
-        <div className='flex flex-col md:flex-row items-start'>
-            {position ? <ProfileImage /> : <></>}
+    const content = (
+        <form className='bg-white p-4' onSubmit={handleSend}>
+            <div className='flex flex-col md:flex-row items-start'>
+                {position ? <ProfileImage /> : <></>}
 
-            <Textarea
-                placeholder='Add a comment...'
-                rows={3}
-                className='mb-4 md:mb-0'
-                required
-                onChange={(e) => setComment(e.target.value)}
-            />
-
-
-            <div className='flex items-center w-full md:w-auto'>
-                {!position ? <ProfileImage /> : <></>}
-
-                <InputButton
-                    type='submit'
-                    className='uppercase font-semibold'
-                    value={value}
+                <Textarea
+                    placeholder='Add a comment...'
+                    rows={3}
+                    className='mb-4 md:mb-0'
+                    required
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
                 />
+
+
+                <div className='flex items-center w-full md:w-auto'>
+                    {!position ? <ProfileImage /> : <></>}
+
+                    <InputButton
+                        type='submit'
+                        className='uppercase font-semibold'
+                        value={value}
+                    />
+                </div>
+
             </div>
+        </form>
+    );
 
-        </div>
-    </form>
-);
-
-useEffect(() => {
-    const updatePositon = () => {
-        if (window.innerWidth >= 768) {
-            setPosition(true);
-        } else {
-            setPosition(!position);
+    useEffect(() => {
+        const updatePositon = () => {
+            if (window.innerWidth >= 768) {
+                setPosition(true);
+            } else {
+                setPosition(!position);
+            }
         }
-    }
 
-    updatePositon();
+        updatePositon();
 
-    window.addEventListener('resize', updatePositon);
+        window.addEventListener('resize', updatePositon);
 
-    return () => window.removeEventListener('resize', updatePositon);
-}, []);
+        return () => window.removeEventListener('resize', updatePositon);
+    }, []);
 
-return content;
+    return content;
 }
 
 

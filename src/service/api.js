@@ -53,7 +53,6 @@ export const updateScore = async (score, id) => {
     });
 };
 
-
 export const createComment = async (comment) => {
     return await fetchData('api/comment',  {
         method: "POST", 

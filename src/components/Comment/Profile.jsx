@@ -1,13 +1,13 @@
 import { ProfileImage } from "../Login/Image";
 
-export const Profile = (props) => {
+export const Profile = ({ createdAt, image, username }) => {
 
-    const createdAt = () => {
-        if (!props.createdAt || isNaN(Date.parse(props.createdAt))) {
-            return "Data inválida";
+    const handleCreated = () => {
+        if (!createdAt || isNaN(Date.parse(createdAt))) {
+            return 'Now';
         }
     
-        const millisecondsElapsed = Date.now() - Date.parse(props.createdAt);
+        const millisecondsElapsed = Date.now() - Date.parse(createdAt);
     
         const seconds = Math.floor(millisecondsElapsed / 1000);
         const minutes = Math.floor(seconds / 60);
@@ -22,9 +22,9 @@ export const Profile = (props) => {
 
     return (
         <div className="flex w-full items-center">
-            <ProfileImage image={props.image} />
-            <p className="font-semibold text-dark-blue mx-4">{props.username}</p>
-            <p className="ml-auto text-[rgb(115,119,122)] font-normal">{createdAt()}</p>
+            <ProfileImage image={image} />
+            <p className="font-semibold text-dark-blue mx-4">{username}</p>
+            <p className="ml-auto text-[rgb(115,119,122)] font-normal">{handleCreated()}</p>
         </div>
     );
 }  

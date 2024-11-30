@@ -4,7 +4,7 @@ import { persistReducer } from 'redux-persist';
 export const createPersistedReducer = (baseReducer) => {
     const persistConfig = {
         key: 'root',
-        storage
+        storage,
     };
 
     return persistReducer(persistConfig, baseReducer);    

@@ -27,7 +27,6 @@ const initialState = {
 }
 
 export const logOut = () => {
-    console.log('nao esta chegando  aq');
     clearStorage();  
     return {...initialState};
 };

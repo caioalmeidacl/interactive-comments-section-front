@@ -3,6 +3,8 @@ import { logOut } from "../userSlice";
 
 let isLogginOut = false;
 
+// ver se da para resolver com o subscribe(listener)
+
 const tokenMiddleware = store => next => action => {
     const state = store.getState();
     const token = state.user?.token;
