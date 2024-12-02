@@ -1,24 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { CommentForm } from "../components/Login/Form";
 import { CommentTree } from "../components/Comment/CommentTree";
-import { useDispatch, useSelector } from "react-redux";
-import { selectComments, fetchComments } from "../store/features/commentsSlice";
+import { useFetchComments, useAddComment, useAddReply } from "../service/useQuery";
 
 const InteractiveSection = () => {
-    const dispatch = useDispatch();
-    const comments = useSelector(selectComments);
     const [hierachicalComments, setHierachicalComments] = useState([]);
     const [replyingCommentId, setReplyingCommentId] = useState(null);
-    const [triggerFetch, setTriggerFetch] = useState(true);
-
+    
+    // useQuery 
+    const comments = useFetchComments();
+    const { mutate: addComment, isAddingComment } = useAddComment();
+    const { mutate: addReply, isAddingReply } = useAddReply();
+    
     useEffect(() => {
-        if (triggerFetch) {
-            dispatch(fetchComments()).unwrap();
-            setTriggerFetch(false);
-        }
-    }, [dispatch, triggerFetch]);
-
-    useEffect(() => {
+        console.log(comments);
         if (comments && comments.length > 0) {
             setHierachicalComments(buildHierarchy(comments));
         }
@@ -26,7 +21,6 @@ const InteractiveSection = () => {
 
     const handleOnSuccess = () => {
         setReplyingCommentId(null);
-        setTriggerFetch(true);
     };
 
     const handleReply = (commentId) => {
@@ -56,15 +50,20 @@ const InteractiveSection = () => {
         <div className="p-4">
             {hierachicalComments.length > 0 ? (
                 <CommentTree
-                    comments={hierachicalComments}
+                    comments={buildHierarchy(comments)}
                     replyingCommentId={replyingCommentId}
                     handleReply={handleReply}
+                    onAddReply={addReply}
                     onReplySuccess={handleOnSuccess}
                 />
             ) : (
                 <span></span>
             )}
-            <CommentForm value="Send" onSuccess={handleOnSuccess} />
+            <CommentForm 
+                value="Send" 
+                onSuccess={handleOnSuccess} 
+                addComment={addComment}
+            />
         </div>
     );
 };

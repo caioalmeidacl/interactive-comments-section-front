@@ -1,7 +1,7 @@
 import { CommentForm } from "../Login/Form";
 import { Comment } from "./Comment";
 
-export const CommentTree = ({ comments, replyingCommentId, handleReply, onReplySuccess }) => {
+export const CommentTree = ({ comments, replyingCommentId, handleReply, onReplySuccess, onAddReply }) => {
     return comments.map(comment => (
         <div key={comment._id}>
             <Comment
@@ -16,6 +16,7 @@ export const CommentTree = ({ comments, replyingCommentId, handleReply, onReplyS
                             replyingCommentId={replyingCommentId}
                             handleReply={handleReply}
                             onReplySuccess={onReplySuccess}
+                            onAddReply={onAddReply}
                         />
                     </div>
                 </div>
@@ -28,6 +29,7 @@ export const CommentTree = ({ comments, replyingCommentId, handleReply, onReplyS
                             value="Reply"
                             parentId={comment._id}
                             onSuccess={onReplySuccess}
+                            onAddReply={onAddReply}
                         />
                     </div>
                 </div>

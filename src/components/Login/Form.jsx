@@ -4,21 +4,19 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { authenticateUser } from '../../store/features/userSlice';
 import { ProfileImage } from './Image';
-import { addComment, addReply } from '../../store/features/commentsSlice';
 
-export const CommentForm = ({ value, parentId, onSuccess }) => {
+export const CommentForm = ({ value, parentId, onSuccess, addComment, addReply}) => {
     const [position, setPosition] = useState(true);
     const [comment, setComment] = useState('');
-    const dispatch = useDispatch();
 
     const handleSend = async (e) => {
         e.preventDefault();
 
         try {
             if (!parentId) {
-                dispatch(addComment({ content: comment })).unwrap();
+                await addComment({ content: comment });
             } else {
-                dispatch(addReply({ content: comment, parentId })).unwrap();
+                await addReply({ content: comment, parentId });
                 if(onSuccess) onSuccess();
             }
         } catch (error) {
