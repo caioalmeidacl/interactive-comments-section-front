@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { CommentForm } from "../components/Login/Form";
 import { CommentTree } from "../components/Comment/CommentTree";
-import { useFetchComments, useAddComment, useAddReply } from "../service/useQuery";
+import { CommentError } from "../components/Error";
+import { useFetchComments } from "../service/useQueries";
 
 const InteractiveSection = () => {
     const [hierachicalComments, setHierachicalComments] = useState([]);
     const [replyingCommentId, setReplyingCommentId] = useState(null);
-    
-    // useQuery 
-    const comments = useFetchComments();
-    const { mutate: addComment, isAddingComment } = useAddComment();
-    const { mutate: addReply, isAddingReply } = useAddReply();
-    
+    const { data: comments, isLoading, isError, error } = useFetchComments();
+
     useEffect(() => {
-        console.log(comments);
         if (comments && comments.length > 0) {
             setHierachicalComments(buildHierarchy(comments));
         }
@@ -48,21 +44,22 @@ const InteractiveSection = () => {
 
     return (
         <div className="p-4">
-            {hierachicalComments.length > 0 ? (
+            {isLoading && <p>carregando</p>}
+
+            {hierachicalComments.length > 0 && (
                 <CommentTree
                     comments={buildHierarchy(comments)}
                     replyingCommentId={replyingCommentId}
                     handleReply={handleReply}
-                    onAddReply={addReply}
                     onReplySuccess={handleOnSuccess}
                 />
-            ) : (
-                <span></span>
             )}
-            <CommentForm 
-                value="Send" 
-                onSuccess={handleOnSuccess} 
-                addComment={addComment}
+
+            {isError && <CommentError message={error.message} />}
+
+            <CommentForm
+                value="Send"
+                onSuccess={handleOnSuccess}
             />
         </div>
     );

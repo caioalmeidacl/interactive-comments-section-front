@@ -6,7 +6,7 @@ export const Login = () => {
         <div className="h-screen md:flex md:items-center">
             <div className="md:flex md:p-4 md:mx-auto md:h-fit md:w-fit md:bg-white md:rounded-md">
                 <Image screen={false} />
-                <Sign title="Login" message="Please provide your username and password" />
+                <Sign />
             </div>
         </div>
 

@@ -6,7 +6,7 @@ import { persistStore } from 'redux-persist';
 import { commentsReducer } from './features/commentsSlice';
 
 const rootReducer = combineReducers({
-    user : userReducer,
+    user: userReducer,
     comments: commentsReducer,
 });
 
@@ -16,7 +16,7 @@ const store = configureStore({
     reducer: persistedReducer,
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
-            serializableCheck: false, 
+            serializableCheck: false,
         }).concat(tokenMiddleware),
 });
 

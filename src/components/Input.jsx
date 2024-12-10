@@ -1,4 +1,4 @@
-export const Input = (props) => {
+export const Input = ({ type, className, ...props }) => {
     const baseStyle = "focus:outline-none";
     const styles = {
 
@@ -6,37 +6,37 @@ export const Input = (props) => {
 
 
     return (
-        <input 
-            type={props.type} 
-            {...props} 
-            className={`border border-slate-400 p-2 bg-very-light-gray w-full mb-2 md:mb-4 ${props.className}`}
+        <input
+            type={type}
+            {...props}
+            className={`${baseStyle} border border-slate-400 p-2 bg-very-light-gray w-full mb-2 md:mb-4 ${className}`}
         />
     );
-} 
+}
 
-export const Textarea = (props) => {
+export const Textarea = ({ cols, rows, placeholder, className, ...props }) => {
     return (
-        <textarea 
-            cols={props.cols} 
-            rows={props.rows} 
-            placeholder={props.placeholder}
+        <textarea
+            cols={cols}
+            rows={rows}
+            placeholder={placeholder}
             maxLength="95"
             {...props}
-            className={`border border-slate-300 px-4 py-2 bg-white w-full resize-none rounded-md focus:outline-none md:mx-2 ${props.className}`}
+            className={`border border-slate-300 px-4 py-2 bg-white w-full resize-none rounded-md focus:outline-none md:mx-2 ${className}`}
         />
-    
+
     );
 
 }
 // 
 
-export const InputButton = (props) => {
+export const InputButton = ({ type, value, className, ...props }) => {
     return (
-        <input 
-            type={props.type} 
-            value={props.value}
-            {...props} 
-            className={`flex items-center min-w-24 min-h-10 bg-moderate-blue text-white ml-auto rounded-[5px] cursor-pointer outline-none ${props.className}`}
+        <input
+            type={type}
+            {...props}
+            value={value}
+            className={`flex items-center min-w-24 min-h-10 bg-moderate-blue text-white ml-auto rounded-[5px] cursor-pointer outline-none ${className}`}
         />
     );
 }
