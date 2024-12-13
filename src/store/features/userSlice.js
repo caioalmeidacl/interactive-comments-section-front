@@ -27,9 +27,12 @@ export const authenticateUser = createAsyncThunk(
 
 export const signUpUser = createAsyncThunk(
   "user/signup",
-  async ({ username, email, password }, { dispatch, rejectWithValue }) => {
+  async (
+    { username, email, password, profilePicture },
+    { dispatch, rejectWithValue },
+  ) => {
     try {
-      await signUp(username, email, password);
+      await signUp({ username, email, password, profilePicture });
 
       const result = await dispatch(
         authenticateUser({ username, password }),
@@ -93,3 +96,5 @@ export default userSlice.reducer;
 export const selectCurrentUser = (state) => state.user.user;
 export const selectCurrentToken = (state) => state.user.token;
 export const selectCurrentError = (state) => state.user.error;
+export const selectCurrentProfilePicture = (state) =>
+  state.user.user.profilePicture;

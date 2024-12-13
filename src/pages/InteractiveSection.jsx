@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { CommentForm } from "../components/Login/Form";
+import { CommentForm } from "../components/Form";
 import { CommentTree } from "../components/Comment/CommentTree";
 import { CommentError } from "../components/Error";
 import { useFetchComments } from "../service/useQueries";

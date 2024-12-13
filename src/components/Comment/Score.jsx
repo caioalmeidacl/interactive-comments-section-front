@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import PlusIcon from '../../assets/images/icon-plus.svg';
 import MinusIcon from '../../assets/images/icon-minus.svg';
 import { useGetLikedCommentsByMe, useUpdateScore } from "../../service/useQueries";
@@ -11,22 +11,19 @@ export const Score = ({ score, id }) => {
     const handleScoreChange = (e) => {
         try {
             let newScore = commentScore;
-            let action = true;
 
             const hasLiked = likedComments.includes(id);
 
             if (e.target.alt === 'Plus' && !hasLiked) {
                 newScore = commentScore + 1;
-                action = true;
             }
 
             if (e.target.alt === 'Minus' && hasLiked) {
                 newScore = commentScore - 1;
-                action = false;
             }
 
             if (newScore !== score) {
-                updateScore({ score: newScore, id, action });
+                updateScore({ score: newScore, id, hasLiked });
                 setCommentScore(newScore);
             }
         } catch (error) {

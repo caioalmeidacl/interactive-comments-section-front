@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import MobileImage from "../../assets/images/bg-sidebar-mobile.svg";
 import DesktopImage from "../../assets/images/bg-sidebar-desktop.svg";
-import defaultProfilePic from "../../assets/avatars/image-juliusomo.png"
+import defaultProfilePicture from '../../assets/avatars/defaultProfilePicture.png'
 
-export const Image = (props) => {
+export const Image = () => {
     const [screen, setScreen] = useState(MobileImage);
 
     useEffect(() => {
@@ -31,12 +31,13 @@ export const Image = (props) => {
     );
 };
 
-export const ProfileImage = (props) => {
+export const ProfileImage = ({ className = '', width = 40, profilePicture }) => {
     return (
-        <img src={defaultProfilePic}
-            alt="ProfilePicture"
-            width={40}
-            className={`rounded-full object-contain ${props.className}`}
+        <img
+            src={profilePicture || defaultProfilePicture}
+            alt="Profile Picture"
+            width={width}
+            className={`rounded-full object-cover ${className}`}
         />
     );
 };

@@ -48,7 +48,7 @@ export const useUpdateScore = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ score, id, action }) => updateScore(score, id, action),
+    mutationFn: ({ score, id, hasLiked }) => updateScore(score, id, hasLiked),
     onSuccess: (data) => {
       queryClient.invalidateQueries(["comments"]);
     },

@@ -1,4 +1,4 @@
-import { CommentForm } from "../Login/Form";
+import { CommentForm } from "../Form";
 import { Comment } from "./Comment";
 
 export const CommentTree = ({ comments, replyingCommentId, handleReply, onReplySuccess, onAddReply }) => {

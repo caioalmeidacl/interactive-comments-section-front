@@ -36,7 +36,7 @@ export const InputButton = ({ type, value, className, ...props }) => {
             type={type}
             {...props}
             value={value}
-            className={`flex items-center min-w-24 min-h-10 bg-moderate-blue text-white ml-auto rounded-[5px] cursor-pointer outline-none ${className}`}
+            className={`flex items-center min-w-24 min-h-10 bg-moderate-blue text-white rounded-[5px] cursor-pointer outline-none ${className}`}
         />
     );
 }

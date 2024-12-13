@@ -33,10 +33,10 @@ export const login = async (username, password) => {
   });
 };
 
-export const signUp = async (username, email, password) => {
+export const signUp = async ({ username, email, password, profilePicture }) => {
   return await fetchData("api/user/signup", {
     method: "POST",
-    body: JSON.stringify({ username, email, password }),
+    body: JSON.stringify({ username, email, password, profilePicture }),
   });
 };
 
@@ -52,10 +52,10 @@ export const getAllComments = async () => {
   });
 };
 
-export const updateScore = async (score, id, action) => {
+export const updateScore = async (score, id, hasLiked) => {
   return await fetchData(`api/comment/${id}`, {
     method: "PATCH",
-    body: JSON.stringify({ score, action }),
+    body: JSON.stringify({ score, hasLiked }),
   });
 };
 

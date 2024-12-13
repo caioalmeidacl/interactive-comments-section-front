@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'; import { Input, InputButton, Textarea } from '../Input';
+import React, { useEffect, useState } from 'react'; import { Input, InputButton, Textarea } from './Input';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { authenticateUser, signUpUser } from '../../store/features/userSlice';
-import { ProfileImage } from './Image';
-import { useAddComment, useAddReply } from '../../service/useQueries';
+import { authenticateUser, signUpUser } from '../store/features/userSlice';
+import { ProfileImage } from './Login/Image';
+import { useAddComment, useAddReply } from '../service/useQueries';
 
 export const CommentForm = ({ value, parentId, onSuccess }) => {
     const [position, setPosition] = useState(true);
@@ -79,7 +79,7 @@ export const CommentForm = ({ value, parentId, onSuccess }) => {
 }
 
 
-export const Form = ({ type }) => {
+export const SignForm = ({ type }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
