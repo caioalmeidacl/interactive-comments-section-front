@@ -17,7 +17,7 @@ export const Sign = () => {
         setError(errorCaptured);
     }, [errorCaptured]);
 
-    const handleChangeSign = () => {
+    const handleChangeSignType = () => {
         if (signType === 'in') {
             setMessage('Please provide the following informations to sign up.');
             setSignType('up');
@@ -37,10 +37,8 @@ export const Sign = () => {
 
             {error && <SignError message={error || 'Username or password is incorrect'} />}
 
-            <SignForm type={signType} />
+            <SignForm type={signType} handleChangeSignType={handleChangeSignType} />
 
-            {signType === 'in' && <InputButton type='button' value='Sign Up' onClick={handleChangeSign} className='ml-auto' />}
-            {signType === 'up' && <InputButton type='button' value='Back' onClick={handleChangeSign} className='mr-auto' />}
         </div>
     );
 }
