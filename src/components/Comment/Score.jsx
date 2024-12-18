@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PlusIcon from '../../assets/images/icon-plus.svg';
 import MinusIcon from '../../assets/images/icon-minus.svg';
 import { useGetLikedCommentsByMe, useUpdateScore } from "../../service/useQueries";
+import { IconImage } from "../Login/Image";
 
 export const Score = ({ score, id }) => {
     const [commentScore, setCommentScore] = useState(score);
@@ -22,7 +23,7 @@ export const Score = ({ score, id }) => {
                 newScore = commentScore - 1;
             }
 
-            if (newScore !== score) {
+            if (newScore !== commentScore) {
                 updateScore({ score: newScore, id, hasLiked });
                 setCommentScore(newScore);
             }
@@ -32,9 +33,10 @@ export const Score = ({ score, id }) => {
     };
 
     return (
-        <div className="flex justify-between items-center w-24 bg-light-gray p-2 rounded-md" >
+        <div className="flex justify-between items-center w-24 bg-light-gray p-2 rounded-md md:flex-col md:max-w-7" >
             <div className="h-full flex items-center cursor-pointer">
-                <img src={PlusIcon}
+                <IconImage
+                    image={PlusIcon}
                     alt="Plus"
                     width={14}
                     onClick={handleScoreChange}
@@ -44,7 +46,8 @@ export const Score = ({ score, id }) => {
             <p className="font-bold text-moderate-blue">{commentScore}</p>
 
             <div className="h-full flex items-center" >
-                <img src={MinusIcon}
+                <IconImage
+                    image={MinusIcon}
                     alt="Minus"
                     width={16}
                     className="cursor-pointer"

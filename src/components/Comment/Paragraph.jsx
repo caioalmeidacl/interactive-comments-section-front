@@ -1,5 +1,5 @@
 export const Paragraph = ({ content, className }) => {
-    const baseStyle = 'text-paragraph font-normal w-full my-4';
-    const additionalStyle = 'text-[rgb(115,119,122)]';
-    return <p className={`${baseStyle} ${!!className ? className : additionalStyle}`}>{content}</p>
+    const baseStyle = 'text-paragraph font-normal text-[rgb(115,119,122)]';
+    const additionalStyle = className ? className : '';
+    return <p className={`${baseStyle} ${additionalStyle}`}>{content}</p>
 }

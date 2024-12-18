@@ -1,13 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  mode: "jit",
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
-      screens: {
-      },
+      screens: {},
       colors: {
         "dark-blue": "hsl(212, 24%, 26%)",
         "grayish-blue": "hsl(211, 10%, 45%)",
@@ -20,9 +17,9 @@ export default {
       },
       fontSize: {
         paragraph: "1rem",
-      }
+      },
     },
     // fontFamily: 'Rubik'
   },
   plugins: [],
-}
+};

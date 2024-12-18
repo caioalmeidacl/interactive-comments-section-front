@@ -1,7 +1,7 @@
 import { ProfileImage } from "../Login/Image";
+import { Paragraph } from "./Paragraph";
 
-export const Profile = ({ createdAt, profilePicture, username }) => {
-
+export const Profile = ({ createdAt, profilePicture, username, isYou }) => {
     const onCreated = () => {
         if (!createdAt || isNaN(Date.parse(createdAt))) {
             return 'Now';
@@ -23,8 +23,11 @@ export const Profile = ({ createdAt, profilePicture, username }) => {
     return (
         <div className="flex w-full items-center">
             <ProfileImage profilePicture={profilePicture} />
-            <p className="font-semibold text-dark-blue mx-4">{username}</p>
-            <p className="ml-auto text-[rgb(115,119,122)] font-normal">{onCreated()}</p>
+            <div className='flex items-center'>
+                <Paragraph className="font-semibold text-dark-blue mx-4" content={username} />
+                {isYou && <Paragraph className='bg-moderate-blue text-md text-white font-semibold px-2 ' content={'you'} />}
+            </div>
+            <Paragraph className="ml-auto text-[rgb(115,119,122)] font-normal" content={onCreated()} />
         </div>
     );
 }  

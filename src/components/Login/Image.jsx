@@ -41,3 +41,15 @@ export const ProfileImage = ({ className = '', width = 40, profilePicture }) => 
         />
     );
 };
+
+
+export const IconImage = ({ image, className, ...rest }) => {
+    return (
+        <img
+            src={image}
+            alt='Icon'
+            className={`object-contain w-3 ${className}`}
+            {...rest}
+        />
+    );
+}

@@ -73,6 +73,18 @@ export const createReply = async (reply, parentId) => {
   });
 };
 
+export const updateComment = async (content, id) => {
+  return await fetchData(`api/comment/${id}`, {
+    method: "PUT",
+    body: JSON.stringify({ content }),
+  });
+};
+
+export const deleteComment = async (id) => {
+  return await fetchData(`api/comment/${id}`, {
+    method: "DELETE",
+  });
+};
 export const getLikedCommentsByMe = async () => {
   return await fetchData("api/user/likedComments", {
     method: "GET",

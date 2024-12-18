@@ -4,15 +4,16 @@ import {
   createComment,
   createReply,
   updateScore,
+  deleteComment,
   getLikedCommentsByMe,
+  updateComment,
 } from "./api";
 
 export const useFetchComments = () => {
   return useQuery({
     queryKey: ["comments"],
     queryFn: getAllComments,
-    onError: (error) =>
-      console.log("Erro ao buscar comentarios", error.message),
+    onError: (error) => console.log(error.message),
   });
 };
 
@@ -21,12 +22,8 @@ export const useAddComment = () => {
 
   return useMutation({
     mutationFn: ({ content }) => createComment(content),
-    onSuccess: () => {
-      queryClient.invalidateQueries(["comments"]);
-    },
-    onError: (error) => {
-      console.log(error);
-    },
+    onSuccess: () => queryClient.invalidateQueries(["comments"]),
+    onError: (error) => console.log(error),
   });
 };
 
@@ -35,12 +32,18 @@ export const useAddReply = () => {
 
   return useMutation({
     mutationFn: ({ content, parentId }) => createReply(content, parentId),
-    onSuccess: () => {
-      queryClient.invalidateQueries(["comments"]);
-    },
-    onError: (error) => {
-      console.log(error);
-    },
+    onSuccess: () => queryClient.invalidateQueries(["comments"]),
+    onError: (error) => console.log(error),
+  });
+};
+
+export const useDeleteComment = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ id }) => deleteComment(id),
+    onSuccess: () => queryClient.invalidateQueries(["comments"]),
+    onError: (error) => console.log(error),
   });
 };
 
@@ -49,12 +52,8 @@ export const useUpdateScore = () => {
 
   return useMutation({
     mutationFn: ({ score, id, hasLiked }) => updateScore(score, id, hasLiked),
-    onSuccess: (data) => {
-      queryClient.invalidateQueries(["comments"]);
-    },
-    onError: (error) => {
-      console.log(error);
-    },
+    onSuccess: () => queryClient.invalidateQueries(["comments"]),
+    onError: (error) => console.log(error),
   });
 };
 
@@ -63,5 +62,15 @@ export const useGetLikedCommentsByMe = () => {
     queryKey: ["likedComments"],
     queryFn: getLikedCommentsByMe,
     onError: (error) => console.log(error.message),
+  });
+};
+
+export const useUpdateComment = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ content, id }) => updateComment(content, id),
+    onSuccess: () => queryClient.invalidateQueries(["comments"]),
+    onError: (error) => console.log(error),
   });
 };

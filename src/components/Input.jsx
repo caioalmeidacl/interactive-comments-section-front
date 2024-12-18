@@ -26,17 +26,18 @@ export const Textarea = ({ cols, rows, placeholder, className, ...props }) => {
         />
 
     );
-
 }
-// 
 
 export const InputButton = ({ type, value, className, ...props }) => {
+    const baseStyle = "flex items-center min-w-24 min-h-10 bg-moderate-blue text-white rounded-[5px] cursor-pointer outline-none";
+    const additional = className ? className : '';
+
     return (
         <input
             type={type}
-            {...props}
             value={value}
-            className={`flex items-center min-w-24 min-h-10 bg-moderate-blue text-white rounded-[5px] cursor-pointer outline-none ${className}`}
+            className={`${baseStyle} ${additional}`}
+            {...props}
         />
     );
 }

@@ -6,3 +6,7 @@ body {
     background-color: rgb(245,246,250);
     font-size: clamp(.2rem, 100%, 1.8rem);
 }
+
+.cancel {
+    background-color: hsl(213, 10%, 45%);
+}

@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { SignError } from "../Error";
 import { useSelector } from "react-redux";
 import { selectCurrentError } from "../../store/features/userSlice";
-import { InputButton } from "../Input";
 
 export const Sign = () => {
     const [title, setTitle] = useState('Sign In');
