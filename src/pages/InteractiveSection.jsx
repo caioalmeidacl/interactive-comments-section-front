@@ -43,7 +43,7 @@ const InteractiveSection = () => {
     };
 
     return (
-        <div className="p-4">
+        <div className="p-4 max-w-2xl mx-auto">
             {isLoading && <p>carregando</p>}
 
             {hierachicalComments.length > 0 && (

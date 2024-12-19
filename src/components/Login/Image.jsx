@@ -31,7 +31,7 @@ export const Image = () => {
     );
 };
 
-export const ProfileImage = ({ className = '', width = 40, profilePicture }) => {
+export const ProfileImage = ({ className = '', width = 30, profilePicture }) => {
     return (
         <img
             src={profilePicture || defaultProfilePicture}

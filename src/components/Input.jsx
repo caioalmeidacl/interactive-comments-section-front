@@ -22,14 +22,14 @@ export const Textarea = ({ cols, rows, placeholder, className, ...props }) => {
             placeholder={placeholder}
             maxLength="95"
             {...props}
-            className={`border border-slate-300 px-4 py-2 bg-white w-full resize-none rounded-md focus:outline-none md:mx-2 ${className}`}
+            className={`border border-slate-300 px-4 py-2 bg-white w-full resize-none rounded-md focus:outline-none ${className}`}
         />
 
     );
 }
 
 export const InputButton = ({ type, value, className, ...props }) => {
-    const baseStyle = "flex items-center min-w-24 min-h-10 bg-moderate-blue text-white rounded-[5px] cursor-pointer outline-none";
+    const baseStyle = "flex items-center min-w-24 min-h-10 bg-moderate-blue text-white rounded-[5px] cursor-pointer outline-none hover:bg-opacity-45 transition";
     const additional = className ? className : '';
 
     return (

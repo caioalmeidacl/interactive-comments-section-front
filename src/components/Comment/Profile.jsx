@@ -14,20 +14,20 @@ export const Profile = ({ createdAt, profilePicture, username, isYou }) => {
         const hours = Math.floor(minutes / 60);
         const days = Math.floor(hours / 24);
 
-        if (days > 0) return `${days} day(s) ago`;
-        if (hours > 0) return `${hours} hour(s) ago`;
-        if (minutes > 0) return `${minutes} minute(s) ago`;
-        return `${seconds} second(s) ago`;
+        if (days > 0) return `${days} days ago`;
+        if (hours > 0) return `${hours} hours ago`;
+        if (minutes > 0) return `${minutes} minutes ago`;
+        return `${seconds} seconds ago`;
     };
 
     return (
         <div className="flex w-full items-center">
             <ProfileImage profilePicture={profilePicture} />
             <div className='flex items-center'>
-                <Paragraph className="font-semibold text-dark-blue mx-4" content={username} />
-                {isYou && <Paragraph className='bg-moderate-blue text-md text-white font-semibold px-2 ' content={'you'} />}
+                <Paragraph className="font-semibold text-dark-blue mx-2" content={username} />
+                {isYou && <Paragraph className='bg-moderate-blue text-md text-white font-semibold px-2' content={'you'} />}
             </div>
-            <Paragraph className="ml-auto text-[rgb(115,119,122)] font-normal" content={onCreated()} />
+            <Paragraph className="ml-auto md:ml-4 text-[rgb(115,119,122)] font-normal" content={onCreated()} />
         </div>
     );
 }  

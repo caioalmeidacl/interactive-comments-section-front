@@ -33,15 +33,15 @@ export const Score = ({ score, id }) => {
     };
 
     return (
-        <div className="flex justify-between items-center w-24 bg-light-gray p-2 rounded-md md:flex-col md:max-w-7" >
+        <div className="flex justify-between items-center w-24 bg-light-gray p-2 rounded-md md:flex-col md:max-w-8 md:min-h-24" >
             <div className="h-full flex items-center cursor-pointer">
-                <IconImage
+                < IconImage
                     image={PlusIcon}
                     alt="Plus"
                     width={14}
                     onClick={handleScoreChange}
                 />
-            </div>
+            </div >
 
             <p className="font-bold text-moderate-blue">{commentScore}</p>
 
@@ -54,6 +54,6 @@ export const Score = ({ score, id }) => {
                     onClick={handleScoreChange}
                 />
             </div>
-        </div>
+        </div >
     );
 }
