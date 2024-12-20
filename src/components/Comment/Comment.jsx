@@ -49,7 +49,7 @@ export const Comment = ({ content, user, score, _id, createdAt, handleReply }) =
                                 previousContent={content}
                             />
                         ) : (
-                            <Paragraph content={content} className={'my-4'} />
+                            <Paragraph content={content} className={'mt-4'} />
                         )}
                     </div>
                 </div>
